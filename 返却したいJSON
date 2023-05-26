@@ -1,0 +1,114 @@
+    {
+    id: 0,
+    name: 'ソダシ',
+    birthday: '2018年3月8日',
+    kyusya: '須貝尚介',
+    seisansya: 'ノーザンファーム',
+    banushi: '金子真人ホールディングス',
+   
+    tsusanseiseki: {
+        syobusuu: '15',
+        '7', 
+    }
+    syokin: '59300万円',
+    race: {
+        1st: {
+            raceName:, 
+                date:, 
+                place, 
+                waku:, 
+                kyori:, 
+                rank:,
+                jockey:, 
+        }
+        2nd: {
+            raceName:, 
+                date:, 
+                place, 
+                waku:, 
+                kyori:, 
+                rank:,
+                jockey:, 
+        }...
+    }
+    ketto: {
+    		sosen:{
+    			FatherName:
+    			MatherName:
+    			FathersFatherName:
+    			FathersMatherName:
+    			MathersFatherName:
+    			MathersMatherName:
+    			FathersFathersFatherName:
+    			FathersFathersMatherName:
+    			FathersMathersFatherName:
+    			FathersMathersMatherName:
+    			MathersFathersFatherName:
+    			MathersFathersMatherName:
+    			MathersMathersFatherName:
+    			MathersMathersMatherName:
+    		
+    		}
+    }
+}
+
+{
+  id: 0,
+  name: 'ソダシ',
+  birthday: '2018年3月8日',
+  kyusya: '須貝尚介',
+  seisansya: 'ノーザンファーム',
+  banushi: '金子真人ホールディングス',
+  syokin: '59300万円',
+  tsusanSeiseki: { syobusu: 15, syorisu: 7 },
+  raceResultList: [
+    {
+      raceName: 'ヴィクトリアマイル',
+      date: '23/05/14',
+      place: '東京競馬場',
+      kyori: 1400,
+      rank: 2,
+      jockey: 'レーン',
+      raceRank: 'G1',
+      waku: 16
+    }
+  ],
+  sosen: {
+    mathersFatherName: 'キングカメハメハ',
+    mathersMatherName: 'シラユキヒメ',
+    fathersMatherName: 'ブルーアヴェニュー',
+    fathersFatherName: 'フレンチデピュティ',
+    matherName: 'ブチコ',
+    fatherName: 'クロフネ'
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
