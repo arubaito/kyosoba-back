@@ -20,7 +20,7 @@ public class PoolingDataSourceConfig {
 	org.slf4j.Logger logger = LoggerFactory.getLogger(PoolingDataSourceConfig.class);
 	
 	/**
-	 * データソースW（Connectionオブジェクトのファクトリ）のBean
+	 * データソース（Connectionオブジェクトのファクトリ）のBean
 	 */
 	@Bean
 	public DataSource dataSource() {

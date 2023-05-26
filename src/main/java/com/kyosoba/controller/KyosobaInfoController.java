@@ -30,7 +30,7 @@ public class KyosobaInfoController {
 	 * @return
 	 */
 	@GetMapping("/kyosoba-info-detail")
-	public KyosobaInfoResource say_Hello(String id) {
+	public KyosobaInfoResource kyosobaInfoDetail(String id) {
 
 		// 競走馬情報を取得
 		KyosobaInfoResource kyosobaInfo = kyosobaInfoService.findById(0);

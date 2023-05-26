@@ -15,6 +15,7 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.kyosoba" />
 	
+	<!-- 多分このファイル参照されてない Beanが重複しているとかのエラーがでないので。どうやったら参照できるかは謎 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName"	value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://localhost:5432/SpringJDBC" />
