@@ -5,17 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * 競走馬テーブルDAO
  */
-@Component
+@Repository
 @ComponentScan("com.kyosoba") // よくわからんけど、ここにComponentScanを付けるとDriverのエラーが出なくなる
 public class JdbcKyosobaDao {
 	
-		// Logger
-		Logger logger = LoggerFactory.getLogger(JdbcKyosobaDao.class);
+	// Logger
+	Logger logger = LoggerFactory.getLogger(JdbcKyosobaDao.class);
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
