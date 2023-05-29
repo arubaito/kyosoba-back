@@ -33,7 +33,7 @@ public class JdbcKyosobaDao {
 	 * @return 取得した競走馬エンティティ
 	 */
 	// TODO メソッド名に何を取得するか書く
-	public Kyosoba find(int findId) {
+	public Kyosoba getKyosobaEntity(int findId) {
 		
 		logger.info("----------JdbcKyosobaDao#find---------");
 		

@@ -40,7 +40,7 @@ public class KyosobaInfoService {
 	public KyosobaInfoResource findById(int kyosobaId) {
 		
 		 // IDをキーにDBから競走馬の情報を取得 
-		 Kyosoba kyosoba = dao.find(kyosobaId);
+		 Kyosoba kyosoba = dao.getKyosobaEntity(kyosobaId);
 		
 		// APIの呼び出し元へ返却するリソースにDBの情報をセット
 		KyosobaInfoResource kyosobaInfo = new KyosobaInfoResource();
@@ -57,14 +57,36 @@ public class KyosobaInfoService {
 		SosenResource sosen = new SosenResource();
 		
 		// 祖先の馬名を取得
-		Map<String, String> ryoshin = getSosen(kyosoba.getFatherId(), kyosoba.getMatherId());	
-		sosen.setFatherName(ryoshin.get("fatherName"));
-		sosen.setMatherName(ryoshin.get("matherName"));
-		sosen.setFathersFatherName("フレンチデピュティ");
-		sosen.setFathersMatherName("ブルーアヴェニュー");
-		sosen.setMathersFatherName("キングカメハメハ");
-		sosen.setMathersMatherName("シラユキヒメ");
+		Kyosoba father = dao.getKyosobaEntity(kyosoba.getFatherId());
+		Kyosoba mather = dao.getKyosobaEntity(kyosoba.getMatherId());
+		Kyosoba fathersFather = dao.getKyosobaEntity(father.getFatherId());
+		Kyosoba fathersMather = dao.getKyosobaEntity(father.getMatherId());
+		Kyosoba mathersFather = dao.getKyosobaEntity(mather.getFatherId());
+		Kyosoba mathersMather = dao.getKyosobaEntity(mather.getMatherId());
+		Kyosoba fathersFathersFather = dao.getKyosobaEntity(fathersFather.getFatherId());
+		Kyosoba fathersFathersMather = dao.getKyosobaEntity(fathersFather.getMatherId());
+		Kyosoba fathersMathersFather = dao.getKyosobaEntity(fathersMather.getFatherId());
+		Kyosoba fathersMathersMather = dao.getKyosobaEntity(fathersMather.getMatherId());
+		Kyosoba mathersFathersFather = dao.getKyosobaEntity(mathersFather.getFatherId());
+		Kyosoba mathersFathersMather = dao.getKyosobaEntity(mathersFather.getMatherId());
+		Kyosoba mathersMathersFather = dao.getKyosobaEntity(mathersMather.getFatherId());
+		Kyosoba mathersMathersMather = dao.getKyosobaEntity(mathersMather.getMatherId());
 		
+		sosen.setFatherName(father.getBamei());
+		sosen.setMatherName(mather.getBamei());
+		sosen.setFathersFatherName(fathersFather.getBamei());
+		sosen.setFathersMatherName(fathersMather.getBamei());
+		sosen.setMathersFatherName(mathersFather.getBamei());
+		sosen.setMathersMatherName(mathersMather.getBamei());
+
+		sosen.setFathersFathersFatherName(fathersFathersFather.getBamei());
+		sosen.setFathersFathersMatherName(fathersFathersMather.getBamei());
+		sosen.setFathersMathersFatherName(fathersMathersFather.getBamei());
+		sosen.setFathersMathersMatherName(fathersMathersMather.getBamei());
+		sosen.setMathersFathersFatherName(mathersFathersFather.getBamei());
+		sosen.setMathersFathersMatherName(mathersFathersMather.getBamei());
+		sosen.setMathersMathersFatherName(mathersMathersFather.getBamei());
+		sosen.setMathersMathersMatherName(mathersMathersMather.getBamei());
 		kyosobaInfo.setSosen(sosen);
 
 		// 通算成績
@@ -90,6 +112,10 @@ public class KyosobaInfoService {
 		
 		return kyosobaInfo;
 	}
+	
+	
+	
+	
 	
 	/**
 	 * 両親の競走馬IDをキーに馬名を取得
