@@ -1,11 +1,17 @@
 package com.kyosoba.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.kyosoba.entity.Kyosoba;
 
 /**
  * 競走馬テーブルDAO
@@ -20,9 +26,39 @@ public class JdbcKyosobaDao {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
-	public int find() {
+	/**
+	 * IDをキーに競走馬テーブルから１件の競走馬エンティティを取得
+	 * 
+	 * @param int 競走馬テーブルから取得したいID
+	 * @return Kyosoba 取得した競走馬エンティティ
+	 */
+	public Kyosoba find(int findId) {
+		
 		logger.info("----------JdbcKyosobaDao#find---------");
-		String sql = "select max(id) from kyosoba";
-		return jdbcTemplate.queryForObject(sql, Integer.class);
+		
+		String sql = "select * from kyosoba where id=?";
+		
+		 Kyosoba kyosoba = jdbcTemplate.queryForObject(
+				sql, 
+				// BeanPropertyRowMapperの方がプロパティをセットする必要がないが、あえてめんどい方で。
+				new RowMapper<Kyosoba>() {
+					@Override
+					public Kyosoba mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Kyosoba kyosoba = new Kyosoba();
+						kyosoba.setBamei(rs.getString("bamei"));
+						kyosoba.setBirthday(rs.getDate("birthday"));
+						kyosoba.setKyusya(rs.getString("kyusya"));
+						kyosoba.setBanushi(rs.getString("banushi"));
+						kyosoba.setSeisansya(rs.getString("seisansya"));
+						kyosoba.setSeibetsu(rs.getBoolean("seibetsu"));
+						kyosoba.setKeiro(rs.getString("keiro"));
+						kyosoba.setFatherId(rs.getInt("father_id"));
+						kyosoba.setMatherId(rs.getInt("mather_id"));
+						return kyosoba;
+					}
+				},
+				findId);
+		 
+		 return kyosoba;
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.kyosoba.dao.JdbcKyosobaDao;
+import com.kyosoba.entity.Kyosoba;
 import com.kyosoba.model.KyosobaInfoResource;
 import com.kyosoba.model.RaceResultResource;
 import com.kyosoba.model.SosenResource;
@@ -36,20 +37,31 @@ public class KyosobaInfoService {
 	 */
 	public KyosobaInfoResource findById(int kyosobaId) {
 		
-		// DBアクセス処理 // 
-		int i = dao.find();
+		 // IDをキーにDBから競走馬の情報を取得 
+		 Kyosoba kyosoba = dao.find(kyosobaId);
 		
-		// DBの情報からリソースへ変換
+		// APIの呼び出し元へ返却するリソースにDBの情報をセット
 		KyosobaInfoResource kyosobaInfo = new KyosobaInfoResource();
 		// 固定情報
-		kyosobaInfo.setId(0);
-		kyosobaInfo.setName("ソダシ");
-		kyosobaInfo.setBirthday("2018年3月8日");
-		kyosobaInfo.setKyusya("須貝尚介");
-		kyosobaInfo.setSeisansya("ノーザンファーム");
-		kyosobaInfo.setBanushi("金子真人ホールディングス");
-		kyosobaInfo.setSyokin("59300万円");
+		kyosobaInfo.setId(kyosoba.getId());
+		kyosobaInfo.setName(kyosoba.getBamei());
+		kyosobaInfo.setBirthday(kyosoba.getBirthday());
+		kyosobaInfo.setKyusya(kyosoba.getKyusya());
+		kyosobaInfo.setSeisansya(kyosoba.getSeisansya());
+		kyosobaInfo.setBanushi(kyosoba.getBanushi());
+		kyosobaInfo.setSyokin("---");
 		
+		// 祖先
+		SosenResource sosen = new SosenResource();
+		sosen.setFatherName("クロフネ");
+		sosen.setMatherName("ブチコ");
+		sosen.setFathersFatherName("フレンチデピュティ");
+		sosen.setFathersMatherName("ブルーアヴェニュー");
+		sosen.setMathersFatherName("キングカメハメハ");
+		sosen.setMathersMatherName("シラユキヒメ");
+		
+		kyosobaInfo.setSosen(sosen);
+
 		// 通算成績
 		TsusanSeisekiResource  tsusanSeiseki = new TsusanSeisekiResource();
 		tsusanSeiseki.setSyobusu(15);
@@ -70,17 +82,6 @@ public class KyosobaInfoService {
 		// リストに追加して返却
 		raceResultList.add(firstRace);
 		kyosobaInfo.setRaceResultList(raceResultList);
-		
-		// 祖先
-		SosenResource sosen = new SosenResource();
-		sosen.setFatherName("クロフネ");
-		sosen.setMatherName("ブチコ");
-		sosen.setFathersFatherName("フレンチデピュティ");
-		sosen.setFathersMatherName("ブルーアヴェニュー");
-		sosen.setMathersFatherName("キングカメハメハ");
-		sosen.setMathersMatherName("シラユキヒメ");
-		
-		kyosobaInfo.setSosen(sosen);
 		
 		return kyosobaInfo;
 	}

@@ -1,5 +1,6 @@
 package com.kyosoba.model;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -8,8 +9,8 @@ import java.util.List;
 public class KyosobaInfoResource {
 	
 	private long id;
-	private String name;
-	private String birthday;
+	private String bamei;
+	private Date birthday;
 	private String kyusya;
 	private String seisansya;
 	private String banushi;
@@ -26,15 +27,15 @@ public class KyosobaInfoResource {
 		this.id = id;
 	}
 	public String getName() {
-		return name;
+		return bamei;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.bamei = name;
 	}
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 	public String getKyusya() {

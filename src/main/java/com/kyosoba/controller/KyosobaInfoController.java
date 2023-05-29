@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kyosoba.model.KyosobaInfoResource;
@@ -29,11 +30,12 @@ public class KyosobaInfoController {
 	 * @param id
 	 * @return
 	 */
-	@GetMapping("/kyosoba-info-detail")
-	public KyosobaInfoResource kyosobaInfoDetail(String id) {
+	@GetMapping("/kyosoba-info-detail/{kyosobaId}")
+	public KyosobaInfoResource kyosobaInfoDetail(
+			@PathVariable int kyosobaId) {
 
 		// 競走馬情報を取得
-		KyosobaInfoResource kyosobaInfo = kyosobaInfoService.findById(0);
+		KyosobaInfoResource kyosobaInfo = kyosobaInfoService.findById(kyosobaId);
 
 		return kyosobaInfo;
 
