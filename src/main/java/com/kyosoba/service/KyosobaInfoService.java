@@ -1,7 +1,9 @@
 package com.kyosoba.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +55,11 @@ public class KyosobaInfoService {
 		
 		// 祖先
 		SosenResource sosen = new SosenResource();
-		sosen.setFatherName("クロフネ");
-		sosen.setMatherName("ブチコ");
+		
+		// 祖先の馬名を取得
+		Map<String, String> ryoshin = getSosen(kyosoba.getFatherId(), kyosoba.getMatherId());	
+		sosen.setFatherName(ryoshin.get("fatherName"));
+		sosen.setMatherName(ryoshin.get("matherName"));
 		sosen.setFathersFatherName("フレンチデピュティ");
 		sosen.setFathersMatherName("ブルーアヴェニュー");
 		sosen.setMathersFatherName("キングカメハメハ");
@@ -85,4 +90,23 @@ public class KyosobaInfoService {
 		
 		return kyosobaInfo;
 	}
+	
+	/**
+	 * 両親の競走馬IDをキーに馬名を取得
+	 * 
+	 * @param fatherId:父親の競走馬ID
+	 * @param matherId:母親の競走馬ID
+	 * @return 取得した馬名のマップ(キー: fatherName, matherName)
+	 */
+	private Map<String, String> getSosen(int fatherId, int matherId){
+		String fatherName = dao.getBamei(fatherId);
+		String matherName = dao.getBamei(matherId);
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("fatherName", fatherName);
+		map.put("matherName", matherName);
+		return map;
+	}
+	
+	
 }

@@ -30,8 +30,9 @@ public class JdbcKyosobaDao {
 	 * IDをキーに競走馬テーブルから１件の競走馬エンティティを取得
 	 * 
 	 * @param int 競走馬テーブルから取得したいID
-	 * @return Kyosoba 取得した競走馬エンティティ
+	 * @return 取得した競走馬エンティティ
 	 */
+	// TODO メソッド名に何を取得するか書く
 	public Kyosoba find(int findId) {
 		
 		logger.info("----------JdbcKyosobaDao#find---------");
@@ -61,4 +62,22 @@ public class JdbcKyosobaDao {
 		 
 		 return kyosoba;
 	}
+	
+	/**
+	 * IDをキーに競走馬テーブルから１件の馬名を取得
+	 * 
+	 * @param findId 競走馬テーブルから取得したいID
+	 * @return 取得した馬名
+	 */
+	public String getBamei(int findId) {
+		
+		logger.info("----------JdbcKyosobaDao#find---------");
+		
+		String  sql = "select bamei from kyosoba where id=?";
+		
+		String bamei = jdbcTemplate.queryForObject(sql, String.class, findId);
+		
+		return bamei;
+	}
 }
+	
