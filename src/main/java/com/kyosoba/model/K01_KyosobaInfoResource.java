@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 競走馬詳細情報画面に表示するデータをJSON形式で返却するためのModel
  */
-public class KyosobaInfoResource {
+public class K01_KyosobaInfoResource {
 	
 	private long id;
 	private String bamei;
@@ -15,9 +15,9 @@ public class KyosobaInfoResource {
 	private String seisansya;
 	private String banushi;
 	private String syokin;
-	private TsusanSeisekiResource tsusanSeiseki;
-	private List<RaceResultResource> raceResultList;
-	private SosenResource sosen; 
+	private K01_TsusanSeisekiResource tsusanSeiseki;
+	private List<K01_RaceResultResource> raceResultList;
+	private K01_SosenResource sosen; 
 
 	// setter getter //
 	public long getId() {
@@ -62,22 +62,22 @@ public class KyosobaInfoResource {
 	public void setSyokin(String syokin) {
 		this.syokin = syokin;
 	}
-	public TsusanSeisekiResource getTsusanSeiseki() {
+	public K01_TsusanSeisekiResource getTsusanSeiseki() {
 		return tsusanSeiseki;
 	}
-	public void setTsusanSeiseki(TsusanSeisekiResource tsusanSeiseki) {
+	public void setTsusanSeiseki(K01_TsusanSeisekiResource tsusanSeiseki) {
 		this.tsusanSeiseki = tsusanSeiseki;
 	}
-	public List<RaceResultResource> getRaceResultList() {
+	public List<K01_RaceResultResource> getRaceResultList() {
 		return raceResultList;
 	}
-	public void setRaceResultList(List<RaceResultResource> raceResultList) {
+	public void setRaceResultList(List<K01_RaceResultResource> raceResultList) {
 		this.raceResultList = raceResultList;
 	}
-	public SosenResource getSosen() {
+	public K01_SosenResource getSosen() {
 		return sosen;
 	}
-	public void setSosen(SosenResource sosen) {
+	public void setSosen(K01_SosenResource sosen) {
 		this.sosen = sosen;
 	}
 	// setter getter ここまで //

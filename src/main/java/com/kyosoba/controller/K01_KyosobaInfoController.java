@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kyosoba.model.KyosobaInfoResource;
-import com.kyosoba.service.KyosobaInfoService;
+import com.kyosoba.model.K01_KyosobaInfoResource;
+import com.kyosoba.service.K01_KyosobaInfoService;
 
 /**
  * 競走馬詳細情報を返すためのController
  */
 @RestController
 @ComponentScan("com.kyosoba.service")
-public class KyosobaInfoController {
+public class K01_KyosobaInfoController {
 
 	// Logger
-	Logger logger = LoggerFactory.getLogger(KyosobaInfoController.class);
+	Logger logger = LoggerFactory.getLogger(K01_KyosobaInfoController.class);
 
 	@Autowired
-	KyosobaInfoService kyosobaInfoService;
+	K01_KyosobaInfoService kyosobaInfoService;
 	
 	/**
 	 *  idを基に競走馬情報を返却
@@ -31,11 +31,11 @@ public class KyosobaInfoController {
 	 * @return
 	 */
 	@GetMapping("/kyosoba-info-detail/{kyosobaId}")
-	public KyosobaInfoResource kyosobaInfoDetail(
+	public K01_KyosobaInfoResource kyosobaInfoDetail(
 			@PathVariable int kyosobaId) {
 
 		// 競走馬情報を取得
-		KyosobaInfoResource kyosobaInfo = kyosobaInfoService.findById(kyosobaId);
+		K01_KyosobaInfoResource kyosobaInfo = kyosobaInfoService.findById(kyosobaId);
 
 		return kyosobaInfo;
 

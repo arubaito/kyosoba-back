@@ -3,7 +3,7 @@ package com.kyosoba.model;
 /**
  * 競走馬のレース成績リソース
  */
-public class RaceResultResource {
+public class K01_RaceResultResource {
 
 	private String raceName;
 	private String date; // Local Date を使わねば

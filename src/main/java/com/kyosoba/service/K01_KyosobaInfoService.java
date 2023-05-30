@@ -13,20 +13,20 @@ import org.springframework.stereotype.Service;
 
 import com.kyosoba.dao.JdbcKyosobaDao;
 import com.kyosoba.entity.Kyosoba;
-import com.kyosoba.model.KyosobaInfoResource;
-import com.kyosoba.model.RaceResultResource;
-import com.kyosoba.model.SosenResource;
-import com.kyosoba.model.TsusanSeisekiResource;
+import com.kyosoba.model.K01_KyosobaInfoResource;
+import com.kyosoba.model.K01_RaceResultResource;
+import com.kyosoba.model.K01_SosenResource;
+import com.kyosoba.model.K01_TsusanSeisekiResource;
 
 /**
  * 競走馬詳細情報画面に関するAPIサービスクラス
  */
 @Service
 @ComponentScan("com.kyosoba.dao")
-public class KyosobaInfoService {
+public class K01_KyosobaInfoService {
 	
 	// Logger
-	Logger logger = LoggerFactory.getLogger(KyosobaInfoService.class);
+	Logger logger = LoggerFactory.getLogger(K01_KyosobaInfoService.class);
 	
 	@Autowired
 	JdbcKyosobaDao dao;
@@ -37,13 +37,13 @@ public class KyosobaInfoService {
 	 * @param kyosobaId:競走馬ID
 	 * @return KyosobaInfoResouce:競走馬詳細情報
 	 */
-	public KyosobaInfoResource findById(int kyosobaId) {
+	public K01_KyosobaInfoResource findById(int kyosobaId) {
 		
 		 // IDをキーにDBから競走馬の情報を取得 
 		 Kyosoba kyosoba = dao.getKyosobaEntity(kyosobaId);
 		
 		// APIの呼び出し元へ返却するリソースにDBの情報をセット
-		KyosobaInfoResource kyosobaInfo = new KyosobaInfoResource();
+		K01_KyosobaInfoResource kyosobaInfo = new K01_KyosobaInfoResource();
 		// 固定情報
 		kyosobaInfo.setId(kyosoba.getId());
 		kyosobaInfo.setName(kyosoba.getBamei());
@@ -54,7 +54,7 @@ public class KyosobaInfoService {
 		kyosobaInfo.setSyokin("---");
 		
 		// 祖先
-		SosenResource sosen = new SosenResource();
+		K01_SosenResource sosen = new K01_SosenResource();
 		
 		// 祖先の馬名を取得
 		Kyosoba father = dao.getKyosobaEntity(kyosoba.getFatherId());
@@ -90,14 +90,14 @@ public class KyosobaInfoService {
 		kyosobaInfo.setSosen(sosen);
 
 		// 通算成績
-		TsusanSeisekiResource  tsusanSeiseki = new TsusanSeisekiResource();
+		K01_TsusanSeisekiResource  tsusanSeiseki = new K01_TsusanSeisekiResource();
 		tsusanSeiseki.setSyobusu(15);
 		tsusanSeiseki.setSyorisu(7);
 		kyosobaInfo.setTsusanSeiseki(tsusanSeiseki);
 		
 		// 直近レース結果
-		List<RaceResultResource>	raceResultList = new ArrayList<>();
-		RaceResultResource firstRace = new RaceResultResource();
+		List<K01_RaceResultResource>	raceResultList = new ArrayList<>();
+		K01_RaceResultResource firstRace = new K01_RaceResultResource();
 		firstRace.setRaceName("ヴィクトリアマイル");
 		firstRace.setRaceRank("G1");
 		firstRace.setDate("23/05/14");

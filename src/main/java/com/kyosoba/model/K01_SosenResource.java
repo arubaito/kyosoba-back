@@ -6,7 +6,7 @@ import lombok.Data;
  * 馬の祖先リソース
  */
 @Data
-public class SosenResource {
+public class K01_SosenResource {
 
 	private String FatherName;
 	private String MatherName;

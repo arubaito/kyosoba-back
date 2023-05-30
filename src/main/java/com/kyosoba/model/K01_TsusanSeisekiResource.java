@@ -3,7 +3,7 @@ package com.kyosoba.model;
 /**
  * 競走馬の通算成績を保持するリソース
  */
-public class TsusanSeisekiResource {
+public class K01_TsusanSeisekiResource {
 	private int syobusu;
 	private int syorisu;
 
