@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -32,14 +33,18 @@ public class JdbcKyosobaDao {
 	 * @param int 競走馬テーブルから取得したいID
 	 * @return 取得した競走馬エンティティ
 	 */
-	// TODO メソッド名に何を取得するか書く
 	public Kyosoba getKyosobaEntity(int findId) {
 		
 		logger.info("----------JdbcKyosobaDao#find---------");
+		logger.info("findId:" + findId);
 		
+		// メソッドの呼び出し元に返却する競走馬エンティティ
+		Kyosoba kyosoba = new Kyosoba();
+		
+		// DBからデータ取得時に該当データが存在しない場合に発生するExceptionをcatchしてデータが存在しない場合の競走馬情報を生成。
 		String sql = "select * from kyosoba where id=?";
-		
-		 Kyosoba kyosoba = jdbcTemplate.queryForObject(
+		try { 
+		kyosoba = jdbcTemplate.queryForObject(
 				sql, 
 				// BeanPropertyRowMapperの方がプロパティをセットする必要がないが、あえてめんどい方で。
 				new RowMapper<Kyosoba>() {
@@ -59,7 +64,10 @@ public class JdbcKyosobaDao {
 					}
 				},
 				findId);
-		 
+		}catch(EmptyResultDataAccessException e) {
+			// とりあえず馬名が必要なので、馬名をセット
+			kyosoba.setBamei("---");
+		}
 		 return kyosoba;
 	}
 	
