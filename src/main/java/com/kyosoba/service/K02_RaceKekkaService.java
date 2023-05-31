@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.kyosoba.dao.JdbcRaceKekkaDao;
 import com.kyosoba.entity.RaceKekka;
+import com.kyosoba.entity.RaceKekkaMemo;
 import com.kyosoba.model.K02_RaceKekkaListResource;
 import com.kyosoba.model.K02_RaceKekkaListResource.K02_RaceKekkaResource;
+import com.kyosoba.model.K02_RaceKekkaMemoResource;
 
 /**
  * 競走馬のレース結果を返すためのService
@@ -65,4 +67,26 @@ public class K02_RaceKekkaService {
 		return raceKekkaListResource;
 	}
 	
+	/**
+	 * リソースで受け取ったレース結果メモをDBに登録
+	 * 
+	 * @param resource : レース結果メモリソース
+	 */
+	public void registerRaceKekka(K02_RaceKekkaMemoResource resource) {
+		
+		// リソースをDBに登録するためのエンティティ
+		RaceKekkaMemo raceKekkaMemo = new RaceKekkaMemo();
+		raceKekkaMemo.setRaceZisshiId(resource.getRaceZisshiId());
+		raceKekkaMemo.setRaceKekkaMemo(resource.getRaceKekkaMemo());
+		
+		// テーブルに既に登録されているメモがあれば更新。無ければ登録
+		int count = jdbcRaceKekkaDao.countRaceKekkaMemo(raceKekkaMemo);
+		// レコード件数をもとに判定
+		if(count == 0) {
+			jdbcRaceKekkaDao.insertRaceKekkaMemo(raceKekkaMemo);
+		}else {
+			jdbcRaceKekkaDao.updateRaceKekkaMemo(raceKekkaMemo);
+		}
+		
+	}
 }

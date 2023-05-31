@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kyosoba.entity.RaceKekka;
+import com.kyosoba.entity.RaceKekkaMemo;
 
 /**
  * レース結果取得DAO
@@ -81,8 +82,50 @@ public class JdbcRaceKekkaDao {
 		return raceKekkaList;
 		
 	}
-	
-	
+
+	/**
+	 * 特定のレースのレース結果メモのレコード数をカウント
+	 * 
+	 * @param raceKekkaMemo:レース結果メモエンティティ
+	 * @return レース結果メモエンティティのレース実施IDと同じIDのレコードの数（1 or 0）
+	 */
+	public int countRaceKekkaMemo(RaceKekkaMemo raceKekkaMemo) {
+
+		String selectSql = "SELECT COUNT(*) FROM race_result_memo WHERE race_zisshi_id = ?";
+
+		Integer count = jdbcTemplate.queryForObject(selectSql, Integer.class, raceKekkaMemo.getRaceZisshiId());
+
+		// int型で返却
+		return count.intValue();
+	}
+
+	/**
+	 * レース結果メモをレース結果メモテーブルに登録
+	 * @param raceKekkaMemo:レース結果メモエンティティ
+	 * @return 登録件数
+	 */
+	public int insertRaceKekkaMemo(RaceKekkaMemo raceKekkaMemo) {
+
+		String insertSql = "INSERT INTO race_result_memo VALUES (?, ?)";
+
+		int insertCount = jdbcTemplate.update(insertSql, raceKekkaMemo.getRaceZisshiId(), raceKekkaMemo.getRaceKekkaMemo());
+
+		return insertCount;
+	}
+
+	/**
+	 * レース結果メモをレース結果メモテーブルへ更新
+	 * @param raceKekkaMemo:レース結果メモエンティティ
+	 * @return 更新件数
+	 */
+	public int updateRaceKekkaMemo(RaceKekkaMemo raceKekkaMemo) {
+		
+		String updateSql = "UPDATE race_result_memo SET race_kekka_memo = ? WHERE race_zisshi_id = ?";
+
+		int updateCount = jdbcTemplate.update(updateSql, raceKekkaMemo.getRaceKekkaMemo(), raceKekkaMemo.getRaceZisshiId());
+
+		return updateCount;
+	}
 	
 	
 }
