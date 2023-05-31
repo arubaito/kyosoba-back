@@ -1,3 +1,5 @@
+-- 競走馬詳細情報画面 --
+
     {
     id: 0,
     name: 'ソダシ',
@@ -83,32 +85,20 @@
   }
 }
 
+-- レース結果画面 --
 
+{
+	syussoubaRaceKekkaListOrderByTyakuzyun:[
+		{
+			tyuakuzyun:'1', 
+			waku:
+			umaban
+			yosou
+			bamei
+			seirei
+			kisyu
+			ninki
+		}
+	]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

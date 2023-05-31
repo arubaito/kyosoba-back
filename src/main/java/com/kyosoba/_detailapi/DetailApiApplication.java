@@ -1,4 +1,4 @@
-package com.kyosoba.detailapi;
+package com.kyosoba._detailapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
