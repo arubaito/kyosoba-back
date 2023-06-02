@@ -100,5 +100,28 @@
 			ninki
 		}
 	]
-
 }
+
+{
+	raceIchiran:[
+		raceZisshiId:
+		raceName:
+		raceGrade:
+		raceDate:
+		kyori: 
+		tousu:
+		tenko:
+		baba:
+		tyakuzyun:[
+			1tyaku:
+			2tyaku:
+			3tyaku:
+		]
+	]
+}
+
+
+
+
+
+
