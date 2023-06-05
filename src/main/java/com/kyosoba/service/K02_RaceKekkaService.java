@@ -54,6 +54,7 @@ public class K02_RaceKekkaService {
 			raceKekkaResource.setWaku(x.getWaku());
 			raceKekkaResource.setUmaban(x.getUmaban());
 			raceKekkaResource.setYosou(x.getYosou());
+			raceKekkaResource.setKyosobaId(x.getKyosobaId());
 			raceKekkaResource.setBamei(x.getBamei());
 			raceKekkaResource.setSeirei(x.isSeibetsu() == true ? "牡" : "牝"); // TODO Enum型から取得する
 			raceKekkaResource.setKisyu(x.getKisyumei());

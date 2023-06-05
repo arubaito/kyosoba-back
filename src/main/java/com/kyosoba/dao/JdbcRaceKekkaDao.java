@@ -45,6 +45,7 @@ public class JdbcRaceKekkaDao {
 				+ "    , t3.waku"
 				+ "    , t3.umaban"
 				+ "    , t3.yosou"
+				+ "    , t3.kyosoba_id as kyosobaId"
 				+ "    , t4.bamei"
 				+ "    , t4.seibetsu"
 				+ "    , t5.kisyumei"
@@ -70,6 +71,7 @@ public class JdbcRaceKekkaDao {
 					raceKekka.setWaku(rs.getInt("waku"));
 					raceKekka.setUmaban(rs.getInt("umaban"));
 					raceKekka.setYosou(rs.getInt("yosou"));
+					raceKekka.setKyosobaId(rs.getInt("kyosobaId"));
 					raceKekka.setBamei(rs.getString("bamei"));
 					raceKekka.setSeibetsu(rs.getBoolean("seibetsu"));
 					raceKekka.setKisyumei(rs.getString("kisyumei"));

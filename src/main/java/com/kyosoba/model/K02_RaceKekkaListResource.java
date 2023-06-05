@@ -22,6 +22,7 @@ public class K02_RaceKekkaListResource {
 		private int waku;
 		private int umaban;
 		private int yosou;
+		private int kyosobaId;
 		private String bamei;
 		private String seirei;
 		private String kisyu;

@@ -14,6 +14,7 @@ public class RaceKekka {
 	private int waku;
 	private int umaban;
 	private int yosou;
+	private int kyosobaId;
 	private String bamei;
 	private boolean seibetsu;
 	private String kisyumei;
