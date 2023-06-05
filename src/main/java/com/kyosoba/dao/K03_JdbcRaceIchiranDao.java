@@ -37,7 +37,7 @@ public class K03_JdbcRaceIchiranDao {
 		List<K03_RaceZisshiEntity> raceZisshiIdList = new ArrayList<>();
 		
 		// 最新のレース10件のレース実施IDを取得
-		String selectIdSql = "select race_zisshi_id from race_zisshi order by date limit 10";
+		String selectIdSql = "select race_zisshi_id from race_zisshi order by date desc limit 10";
 		 raceZisshiIdList = jdbcTemplate.query(selectIdSql, 
 				// RaceIchiranEntity変換処理
 				new RowMapper<K03_RaceZisshiEntity>() {
