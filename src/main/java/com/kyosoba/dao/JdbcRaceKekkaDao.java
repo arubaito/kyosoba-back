@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kyosoba.entity.K02_RaceKekkaMemo;
+import com.kyosoba.entity.K02_RaceYosou;
 import com.kyosoba.entity.RaceKekka;
 
 /**
@@ -152,6 +153,22 @@ public class JdbcRaceKekkaDao {
 				}, raceZisshiId);
 		
 		return raceKekkaMemo;
+	}
+	
+	
+	/**
+	 *  レース結果テーブルの予想を更新
+	 * 
+	 * @param raceYosou : 更新対象エンティティ
+	 * @return 更新件数
+	 */
+	public int updateRaceYosou(K02_RaceYosou raceYosou) {
+		
+		String updateSql = "UPDATE race_result SET yosou = ? WHERE race_zisshi_id = ? AND kyosoba_id = ?;";
+		
+		int updateCount = jdbcTemplate.update(updateSql, raceYosou.getYosou(), raceYosou.getRaceZisshiId(), raceYosou.getKyosobaId());
+		
+		return updateCount;
 	}
 	
 	

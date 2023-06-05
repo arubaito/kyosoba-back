@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kyosoba.model.K02_RaceKekkaListResource;
 import com.kyosoba.model.K02_RaceKekkaMemoResource;
+import com.kyosoba.model.K02_RaceYosouResource;
 import com.kyosoba.service.K02_RaceKekkaService;
 
 /**
@@ -75,4 +76,20 @@ public class K02_RaceKekkaController {
 
 	}
 
+	
+	/**
+	 * リクエストボディで送信されてきた競走馬のレース予想を登録
+	 * 
+	 * @param newResource
+	 * @return HTTPステータスコード
+	 */
+	@PostMapping("/update-race-yosou")
+	public String registerRaceYosou(
+			@RequestBody K02_RaceYosouResource newResource) {
+		
+		raceKekkaService.registerRaceYosou(newResource);
+		return "201 OK"; // TODO レスポンス返却結果にOK以外も追加
+	}
+	
+	
 }

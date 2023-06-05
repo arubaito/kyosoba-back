@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.kyosoba.dao.JdbcRaceKekkaDao;
 import com.kyosoba.entity.K02_RaceKekkaMemo;
+import com.kyosoba.entity.K02_RaceYosou;
 import com.kyosoba.entity.RaceKekka;
 import com.kyosoba.model.K02_RaceKekkaListResource;
 import com.kyosoba.model.K02_RaceKekkaListResource.K02_RaceKekkaResource;
 import com.kyosoba.model.K02_RaceKekkaMemoResource;
+import com.kyosoba.model.K02_RaceYosouResource;
 
 /**
  * 競走馬のレース結果を返すためのService
@@ -110,5 +112,24 @@ public class K02_RaceKekkaService {
 		return raceKekkaMemoResource;
 	
 	}
+	
+	/**
+	 * 競走馬の予想を１件更新
+	 * 
+	 * @param K02_RaceYosouResource : レース予想リソース
+	 */
+	public void registerRaceYosou(K02_RaceYosouResource resource) {
+		
+		// リソースをDBに登録するためのエンティティへ変換
+		K02_RaceYosou raceYosou = new K02_RaceYosou();
+		raceYosou.setRaceZisshiId(resource.getRaceZisshiId());
+		raceYosou.setKyosobaId(resource.getKyosobaId());	
+		raceYosou.setYosou(resource.getYosou());
+		
+		// 予想を更新
+		jdbcRaceKekkaDao.updateRaceYosou(raceYosou);
+		
+	}
+	
 
 }
