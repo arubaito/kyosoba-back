@@ -6,7 +6,7 @@ import lombok.Data;
  * レース結果メモエンティティ
  */
 @Data
-public class RaceKekkaMemo {
+public class K02_RaceKekkaMemo {
 
 	private int raceZisshiId;
 	private String raceKekkaMemo;

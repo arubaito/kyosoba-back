@@ -50,7 +50,7 @@ public class K02_RaceKekkaController {
 	 * @return HTTPステータスコード
 	 */
 	@PostMapping("/register-race-kekka-memo")
-	public String  registerRaceKekkaMemo(
+	public String registerRaceKekkaMemo(
 			@RequestBody K02_RaceKekkaMemoResource newResource) {
 		
 		raceKekkaService.registerRaceKekka(newResource);
@@ -58,4 +58,21 @@ public class K02_RaceKekkaController {
 		return "201 OK"; // TODO レスポンス返却結果にOK以外も追加
 	}
 	
+	
+	/**
+	 * パスで指定されたレース実施IDのレース結果メモを返却
+	 * 
+	 * @param int: レース実施ID
+	 * @return レース結果メモリソース
+	 */
+	@GetMapping("/get-race-kekka-memo-{raceZisshiId}")
+	public K02_RaceKekkaMemoResource getRaceKekkaMemo(
+			@PathVariable int raceZisshiId) {
+		
+		K02_RaceKekkaMemoResource raceKekkaMemo = raceKekkaService.getRaceKekkaMemo(raceZisshiId);
+		
+		return raceKekkaMemo;
+
+	}
+
 }

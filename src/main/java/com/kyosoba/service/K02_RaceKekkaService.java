@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kyosoba.dao.JdbcRaceKekkaDao;
+import com.kyosoba.entity.K02_RaceKekkaMemo;
 import com.kyosoba.entity.RaceKekka;
-import com.kyosoba.entity.RaceKekkaMemo;
 import com.kyosoba.model.K02_RaceKekkaListResource;
 import com.kyosoba.model.K02_RaceKekkaListResource.K02_RaceKekkaResource;
 import com.kyosoba.model.K02_RaceKekkaMemoResource;
@@ -75,7 +75,7 @@ public class K02_RaceKekkaService {
 	public void registerRaceKekka(K02_RaceKekkaMemoResource resource) {
 		
 		// リソースをDBに登録するためのエンティティ
-		RaceKekkaMemo raceKekkaMemo = new RaceKekkaMemo();
+		K02_RaceKekkaMemo raceKekkaMemo = new K02_RaceKekkaMemo();
 		raceKekkaMemo.setRaceZisshiId(resource.getRaceZisshiId());
 		raceKekkaMemo.setRaceKekkaMemo(resource.getRaceKekkaMemo());
 		
@@ -89,4 +89,26 @@ public class K02_RaceKekkaService {
 		}
 		
 	}
+	
+	/**
+	 * 引数で指定されたレース実施IDのレース結果メモを取得
+	 * 
+	 * @return レース結果メモリソース
+	 */
+	public K02_RaceKekkaMemoResource getRaceKekkaMemo(int raceZisshiId) {
+		
+		// メソッドの呼び出し元に返却するリソース
+		K02_RaceKekkaMemoResource raceKekkaMemoResource = new K02_RaceKekkaMemoResource();
+		
+		// DBからレース結果メモを取得
+		K02_RaceKekkaMemo raceKekkaMemo = jdbcRaceKekkaDao.getRaceKekkaMemo(raceZisshiId);
+		
+		// リソースとエンティティの変換処理
+		raceKekkaMemoResource.setRaceZisshiId(raceZisshiId);
+		raceKekkaMemoResource.setRaceKekkaMemo(raceKekkaMemo.getRaceKekkaMemo());
+		
+		return raceKekkaMemoResource;
+	
+	}
+
 }

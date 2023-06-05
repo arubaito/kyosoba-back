@@ -85,7 +85,7 @@
   }
 }
 
--- レース結果画面 --
+-- レース結果一覧画面 --
 
 {
 	syussoubaRaceKekkaListOrderByTyakuzyun:[
@@ -119,6 +119,9 @@
 		]
 	]
 }
+
+-- レース結果画面のレースメモ
+
 
 
 

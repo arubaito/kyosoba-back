@@ -11,8 +11,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.kyosoba.entity.K02_RaceKekkaMemo;
 import com.kyosoba.entity.RaceKekka;
-import com.kyosoba.entity.RaceKekkaMemo;
 
 /**
  * レース結果取得DAO
@@ -89,7 +89,7 @@ public class JdbcRaceKekkaDao {
 	 * @param raceKekkaMemo:レース結果メモエンティティ
 	 * @return レース結果メモエンティティのレース実施IDと同じIDのレコードの数（1 or 0）
 	 */
-	public int countRaceKekkaMemo(RaceKekkaMemo raceKekkaMemo) {
+	public int countRaceKekkaMemo(K02_RaceKekkaMemo raceKekkaMemo) {
 
 		String selectSql = "SELECT COUNT(*) FROM race_result_memo WHERE race_zisshi_id = ?";
 
@@ -104,7 +104,7 @@ public class JdbcRaceKekkaDao {
 	 * @param raceKekkaMemo:レース結果メモエンティティ
 	 * @return 登録件数
 	 */
-	public int insertRaceKekkaMemo(RaceKekkaMemo raceKekkaMemo) {
+	public int insertRaceKekkaMemo(K02_RaceKekkaMemo raceKekkaMemo) {
 
 		String insertSql = "INSERT INTO race_result_memo VALUES (?, ?)";
 
@@ -118,13 +118,40 @@ public class JdbcRaceKekkaDao {
 	 * @param raceKekkaMemo:レース結果メモエンティティ
 	 * @return 更新件数
 	 */
-	public int updateRaceKekkaMemo(RaceKekkaMemo raceKekkaMemo) {
+	public int updateRaceKekkaMemo(K02_RaceKekkaMemo raceKekkaMemo) {
 		
 		String updateSql = "UPDATE race_result_memo SET race_kekka_memo = ? WHERE race_zisshi_id = ?";
 
 		int updateCount = jdbcTemplate.update(updateSql, raceKekkaMemo.getRaceKekkaMemo(), raceKekkaMemo.getRaceZisshiId());
 
 		return updateCount;
+	}
+	
+	
+	/**
+	 * 引数で指定されたIDをもとにレース結果メモテーブルから１レコード取得
+	 * 
+	 * @param raceZisshiId:レース実施ID
+	 * @return レース結果メモエンティティ
+	 */
+	public K02_RaceKekkaMemo getRaceKekkaMemo(int raceZisshiId) {
+		
+		String selectSql = "SELECT * FROM race_result_memo WHERE race_zisshi_id = ? limit 1";
+		
+		K02_RaceKekkaMemo raceKekkaMemo = jdbcTemplate.queryForObject(selectSql, 
+				new RowMapper<K02_RaceKekkaMemo>() {
+					@Override
+					public K02_RaceKekkaMemo mapRow(ResultSet rs, int rowNum) throws SQLException {
+					
+						// ドメイン変換
+						K02_RaceKekkaMemo raceKekkaMemo = new K02_RaceKekkaMemo();
+						raceKekkaMemo.setRaceZisshiId(raceZisshiId);
+						raceKekkaMemo.setRaceKekkaMemo(rs.getString("race_kekka_memo"));
+						return raceKekkaMemo;
+					}
+				}, raceZisshiId);
+		
+		return raceKekkaMemo;
 	}
 	
 	
