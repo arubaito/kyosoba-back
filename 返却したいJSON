@@ -123,7 +123,12 @@
 -- レース結果画面のレースメモ
 
 
-
+-- データ登録管理画面
+grade: "3"
+kyori: "1800"
+mawari: "true"
+place: "6"
+raceName: "エプソムC"
 
 
 
