@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.kyosoba.dao.K05_DataKanriDao;
 import com.kyosoba.entity.K05_RaceMasterEntity;
+import com.kyosoba.entity.K05_RaceZisshiEntity;
 import com.kyosoba.model.K05_RaceMasterResource;
+import com.kyosoba.model.K05_RaceZisshiResource;
 
 /**
  * データ管理をするためのService
@@ -73,6 +75,28 @@ public class K05_DataKanriService {
 		return raceMasterResourceList;
 
 	}
+	
+	
+	/**
+	 * 実施したレースの概要を登録
+	 * 
+	 * @param resource: 登録対象のレース実施Resource
+	 */
+	public void registerRaceZisshi(K05_RaceZisshiResource resource) {
+		
+		// リソースから登録用のエンティティへ変換
+		K05_RaceZisshiEntity entity = new K05_RaceZisshiEntity();
+		entity.setRaceId(resource.getRaceId());
+		entity.setKaisaiDate(resource.getKaisaiDate());
+		entity.setTenko(resource.getTenko());
+		entity.setBaba(resource.getBaba());
+		entity.setTousu(resource.getTousu());
+		
+		// 登録
+		dataKanriDao.insertRaceZisshi(entity);
+		
+	}
+	
 	
 	
 }

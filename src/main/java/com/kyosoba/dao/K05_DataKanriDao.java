@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kyosoba.entity.K05_RaceMasterEntity;
+import com.kyosoba.entity.K05_RaceZisshiEntity;
 
 /**
  * データ管理画面DAO
@@ -74,5 +75,35 @@ public class K05_DataKanriDao {
 		
 		return entityList;
 	}
+	
+	/**
+	 * レース実施テーブルに１件のレコードを登録
+	 * @param entity: 登録対象のレース実施テーブルEntity
+	 * @return 登録件数
+	 */
+	public int insertRaceZisshi(K05_RaceZisshiEntity entity) {
+		
+		String sql = "INSERT INTO race_zisshi(race_id, date, tenko, baba, tousu) VALUES(?, ?, ?, ?, ?)";
+		
+		int insertCount = jdbcTemplate.update(sql,
+				entity.getRaceId(),
+				entity.getKaisaiDate(),
+				entity.getTenko(),
+				entity.getBaba(),
+				entity.getTousu()
+				);
+	
+	return insertCount;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kyosoba.model.K05_RaceMasterResource;
+import com.kyosoba.model.K05_RaceZisshiResource;
 import com.kyosoba.service.K05_DataKanriService;
 
 /**
- * 管理画面のデータ登録関係の
+ * 管理画面のデータ登録関係のController
  */
 @CrossOrigin
 @RestController
@@ -30,7 +31,7 @@ public class K05_DataKanriController {
 	
 	/**
 	 * レースマスタにデータを登録
-	 * @param newResource : リクエストボディで受け取るレースマスタテーブルに登録するJSON
+	 * @param newResource : リクエストボディで受け取るレースマスタ情報
 	 * @return HTTPステータスコード
 	 */
 	@PostMapping("/register-race-master")
@@ -60,5 +61,20 @@ public class K05_DataKanriController {
 		
 	}
 	
-	
+	/**
+	 * レース実施概要を登録
+	 * @param resource: リクエストボディで受け取るレース実施概要
+	 * @return HTTPステータスコード
+	 */
+	@PostMapping("/register-race-zisshi")
+	public String registerRaceZisshi(@RequestBody K05_RaceZisshiResource resource) {
+		
+		logger.info("K05_DataKanriController#registerRaceZisshi");
+		
+		dataKanriService.registerRaceZisshi(resource);
+		
+		return  "201 OK"; // TODO レスポンス返却結果にOK以外も追加
+		
+	}
+
 }
