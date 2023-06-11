@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class K05_RaceMasterEntity {
 
+	private int raceId;
 	private String raceName;
 	private int grade;
 	private boolean course;

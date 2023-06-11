@@ -1,9 +1,12 @@
 package com.kyosoba.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,4 +45,20 @@ public class K05_DataKanriController {
 		
 	}
 
+	/**
+	 * レースマスタの全レース名とレースIDを取得
+	 * 
+	 * @return レース名とレースIDをセットしたリソースのリスト
+	 */
+	@GetMapping("/get-race-name")
+	public List<K05_RaceMasterResource> getRaceMaster() {
+		
+		// レースマスタのレースIDとレース名を取得
+		List<K05_RaceMasterResource> raceNameAndRaceIdList = dataKanriService.getRaceMasterRaceNameAndRaceId();
+		
+		return raceNameAndRaceIdList;
+		
+	}
+	
+	
 }

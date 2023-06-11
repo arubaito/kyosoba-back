@@ -1,9 +1,14 @@
 package com.kyosoba.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kyosoba.entity.K05_RaceMasterEntity;
@@ -41,6 +46,33 @@ public class K05_DataKanriDao {
 		);
 		
 		return insertCount;
+	}
+
+
+	/**
+	 * レースマスタテーブルから全てのレースIDとレース名を取得
+	 * 
+	 * @return レースIDとレース名をセットしたレースマスタEntityのリスト
+	 */
+	public List<K05_RaceMasterEntity> getRaceMasterRaceNameAndRaceId() {
+		
+		String sql = "SELECT race_id, race_name FROM race";
+		
+		// テーブルからレコードを取得してリストを生成
+		List<K05_RaceMasterEntity> entityList = jdbcTemplate.query(sql, 
+				new RowMapper<K05_RaceMasterEntity>() {
+					@Override
+					public K05_RaceMasterEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+						K05_RaceMasterEntity entity = new K05_RaceMasterEntity();
+						entity.setRaceId(rs.getInt("race_id"));
+						entity.setRaceName(rs.getString("race_name"));
+						
+						return entity;
+					}
+			
+		});
+		
+		return entityList;
 	}
 	
 }
