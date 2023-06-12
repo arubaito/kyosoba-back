@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kyosoba.model.K05_KisyuMasterResource;
 import com.kyosoba.model.K05_RaceMasterResource;
 import com.kyosoba.model.K05_RaceZisshiResource;
 import com.kyosoba.service.K05_DataKanriService;
@@ -77,4 +78,21 @@ public class K05_DataKanriController {
 		
 	}
 
+	/**
+	 *騎手マスタを登録
+	 * @param resource: リクエストボディで受け取るレース実施概要
+	 * @return HTTPステータスコード
+	 */
+	@PostMapping("/register-kisyu-master")
+	public String registerKisyuMaster(@RequestBody K05_KisyuMasterResource resource) {
+		
+		logger.info("K05_DataKanriController#registerKisyuMaster");
+		
+		dataKanriService.registerKisyuMaster(resource);
+		
+		return  "201 OK"; // TODO レスポンス返却結果にOK以外も追加
+		
+	}
+
 }
+

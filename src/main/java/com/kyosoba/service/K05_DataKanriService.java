@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kyosoba.dao.K05_DataKanriDao;
+import com.kyosoba.entity.K05_KisyuMasterEntity;
 import com.kyosoba.entity.K05_RaceMasterEntity;
 import com.kyosoba.entity.K05_RaceZisshiEntity;
+import com.kyosoba.model.K05_KisyuMasterResource;
 import com.kyosoba.model.K05_RaceMasterResource;
 import com.kyosoba.model.K05_RaceZisshiResource;
 
@@ -98,5 +100,19 @@ public class K05_DataKanriService {
 	}
 	
 	
-	
+	/**
+	 * 騎手を登録
+	 * 
+	 * @param resource: 登録対象の騎手Resource
+	 */
+	public void registerKisyuMaster(K05_KisyuMasterResource resource) {
+		
+		// リソースから登録用のエンティティへ変換
+		K05_KisyuMasterEntity entity = new K05_KisyuMasterEntity();
+		entity.setKisyumei(resource.getKisyumei());
+		
+		// 登録
+		dataKanriDao.insertKisyuMaster(entity);
+	}
+
 }

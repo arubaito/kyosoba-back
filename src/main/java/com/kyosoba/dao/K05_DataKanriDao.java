@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.kyosoba.entity.K05_KisyuMasterEntity;
 import com.kyosoba.entity.K05_RaceMasterEntity;
 import com.kyosoba.entity.K05_RaceZisshiEntity;
 
@@ -97,7 +98,15 @@ public class K05_DataKanriDao {
 	}
 	
 	
-	
+	public int insertKisyuMaster(K05_KisyuMasterEntity entity) {
+		
+		String sql = "INSERT INTO kisyu(kisyumei) VALUES(?)";
+		
+		int insertCount = jdbcTemplate.update(sql, entity.getKisyumei());
+		
+		return insertCount;
+		
+	}
 	
 	
 	
