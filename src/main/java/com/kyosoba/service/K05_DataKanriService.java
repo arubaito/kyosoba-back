@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.kyosoba.dao.K05_DataKanriDao;
 import com.kyosoba.entity.K05_KisyuMasterEntity;
+import com.kyosoba.entity.K05_KyosobaMasterEntity;
 import com.kyosoba.entity.K05_RaceMasterEntity;
 import com.kyosoba.entity.K05_RaceZisshiEntity;
 import com.kyosoba.model.K05_KisyuMasterResource;
+import com.kyosoba.model.K05_KyosobaMasterResource;
 import com.kyosoba.model.K05_RaceMasterResource;
 import com.kyosoba.model.K05_RaceZisshiResource;
 
@@ -113,6 +115,30 @@ public class K05_DataKanriService {
 		
 		// 登録
 		dataKanriDao.insertKisyuMaster(entity);
+	}
+	
+	/**
+	 * 競走馬を登録
+	 * 
+	 * @param resource: 登録対象の競走馬Resource
+	 */
+	public void registerKyosobaMaster(K05_KyosobaMasterResource resource) {
+		
+		// リソースから登録用のエンティティへ変換
+		K05_KyosobaMasterEntity entity = new K05_KyosobaMasterEntity();
+		entity.setBamei(resource.getBamei());
+		entity.setBirthday(resource.getBirthday());
+		entity.setKyusya(resource.getKyusya());
+		entity.setBanushi(resource.getBanushi());
+		entity.setSeisansya(resource.getSeisansya());
+		entity.setSebetsu(resource.isSebetsu());
+		entity.setKeiro(resource.getKeiro());
+		entity.setFatherId(0); // TODO:将来的には祖先を正確に入れる
+		entity.setMatherId(0); 
+		
+		
+		// 登録
+		dataKanriDao.insertKyosobaMaster(entity);
 	}
 
 }

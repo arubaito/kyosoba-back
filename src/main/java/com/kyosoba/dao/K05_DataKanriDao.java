@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kyosoba.entity.K05_KisyuMasterEntity;
+import com.kyosoba.entity.K05_KyosobaMasterEntity;
 import com.kyosoba.entity.K05_RaceMasterEntity;
 import com.kyosoba.entity.K05_RaceZisshiEntity;
 
@@ -98,6 +99,11 @@ public class K05_DataKanriDao {
 	}
 	
 	
+	/**
+	 * 騎手マスタテーブルにレコードを登録
+	 * @param entity: 登録対象の騎手マスタテーブルEntity
+	 * @return 登録件数
+	 */
 	public int insertKisyuMaster(K05_KisyuMasterEntity entity) {
 		
 		String sql = "INSERT INTO kisyu(kisyumei) VALUES(?)";
@@ -110,9 +116,29 @@ public class K05_DataKanriDao {
 	
 	
 	
-	
-	
-	
-	
-	
+	/**
+	 * 競走馬マスタテーブルにレコードを登録
+	 * 
+	 * @param entity : 登録対称の競走馬マスタテーブルEntity
+	 * @return 登録件数
+	 */
+	public int insertKyosobaMaster(K05_KyosobaMasterEntity entity) {
+		
+		String sql = "INSERT INTO kyosoba(bamei, birthday, kyusya, banushi, seisansya, seibetsu, keiro, father_id, mather_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		
+		int insertCount = jdbcTemplate.update(sql, 
+				entity.getBamei(),
+				entity.getBirthday(),
+				entity.getKyusya(),
+				entity.getBanushi(),
+				entity.getSeisansya(),
+				entity.isSebetsu(),
+				entity.getKeiro(),
+				entity.getFatherId(),
+				entity.getMatherId()
+				);
+		
+		return insertCount;
+	}
+
 }
