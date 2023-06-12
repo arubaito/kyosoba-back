@@ -57,7 +57,7 @@ public class K05_DataKanriDao {
 	 * 
 	 * @return レースIDとレース名をセットしたレースマスタEntityのリスト
 	 */
-	public List<K05_RaceMasterEntity> getRaceMasterRaceNameAndRaceId() {
+	public List<K05_RaceMasterEntity> selectRaceMaster() {
 		
 		String sql = "SELECT race_id, race_name FROM race";
 		
@@ -141,4 +141,31 @@ public class K05_DataKanriDao {
 		return insertCount;
 	}
 
+	/**
+	 * レース実施テーブルとレースマスタテーブルから全てのレース名とレース実施日を取得
+	 * 
+	 * @return レースIDとレース名をセットしたレースマスタEntityのリスト
+	 */
+	public List<K05_RaceZisshiEntity> selectRaceNameAndZisshiDate() {
+		
+		String sql = "SELECT t1.race_zisshi_id, t2.race_name, t1.date FROM race_zisshi t1 INNER JOIN race t2 ON t1.race_id = t2.race_id ORDER BY t1.date DESC";
+		
+		// テーブルからレコードを取得してリストを生成
+		List<K05_RaceZisshiEntity> entityList = jdbcTemplate.query(sql, 
+				new RowMapper<K05_RaceZisshiEntity>() {
+					@Override
+					public K05_RaceZisshiEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+						K05_RaceZisshiEntity entity = new K05_RaceZisshiEntity();
+						entity.setRaceZisshiId(rs.getInt("race_zisshi_id"));
+						entity.setRaceName(rs.getString("race_name"));
+						entity.setKaisaiDate(rs.getDate("date"));
+						
+						return entity;
+					}
+			
+		});
+		
+		return entityList;
+	}
+	
 }

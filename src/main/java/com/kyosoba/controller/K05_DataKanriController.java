@@ -113,6 +113,22 @@ public class K05_DataKanriController {
 		return  "201 OK"; // TODO レスポンス返却結果にOK以外も追加
 		
 	}
+	
+	
+	/**
+	 *  過去のレース実施日とレース名とレース実施IDを取得
+	 * 
+	 * @return リソースのリスト
+	 */
+	@GetMapping("/get-race-zisshi-name-date")
+	public List<K05_RaceZisshiResource> getRaceNameAndZisshiDate(){
+		
+		logger.info("K05_DataKanriController#getRaceNameAndZisshiDate");
+		
+		List<K05_RaceZisshiResource> raceNameAndZisshiDateList = dataKanriService.getRaceNameAndZisshiDate();
+		
+		return raceNameAndZisshiDateList;
+	}
 
 }
 

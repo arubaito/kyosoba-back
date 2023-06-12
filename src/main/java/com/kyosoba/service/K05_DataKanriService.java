@@ -59,7 +59,7 @@ public class K05_DataKanriService {
 		
 		
 		// DBから全レースIDとレース名を取得
-		List<K05_RaceMasterEntity> raceMasterEntityList = dataKanriDao.getRaceMasterRaceNameAndRaceId();
+		List<K05_RaceMasterEntity> raceMasterEntityList = dataKanriDao.selectRaceMaster();
 		
 		// 呼び出し元に返却するリソースのリスト
 		ArrayList<K05_RaceMasterResource> raceMasterResourceList = new ArrayList<K05_RaceMasterResource>();
@@ -141,4 +141,37 @@ public class K05_DataKanriService {
 		dataKanriDao.insertKyosobaMaster(entity);
 	}
 
+	
+	/**
+	 * レース実施IDと実施日とレース名を取得
+	 * 
+	 * @return Resourceのリスト
+	 */
+	public List<K05_RaceZisshiResource> getRaceNameAndZisshiDate() {
+		
+		
+		// DBから全レースIDとレース名を取得
+		List<K05_RaceZisshiEntity> raceZisshiEntityList = dataKanriDao.selectRaceNameAndZisshiDate();
+		
+		// 呼び出し元に返却するリソースのリスト
+		ArrayList<K05_RaceZisshiResource> raceZisshiResourceList = new ArrayList<K05_RaceZisshiResource>();
+		
+		// EntityをResourceに変換してリストにセット
+		raceZisshiEntityList.forEach(entity -> {
+
+			K05_RaceZisshiResource resource = new K05_RaceZisshiResource();
+			
+			resource.setRaceZisshiId(entity.getRaceZisshiId());
+			resource.setRaceName(entity.getRaceName());
+			resource.setKaisaiDate(entity.getKaisaiDate());
+			
+			raceZisshiResourceList.add(resource);
+			
+		});
+		
+		return raceZisshiResourceList;
+
+	}
+	
+	
 }
