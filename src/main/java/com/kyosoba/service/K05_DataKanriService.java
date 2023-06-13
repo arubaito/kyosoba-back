@@ -154,7 +154,7 @@ public class K05_DataKanriService {
 		List<K05_RaceZisshiEntity> raceZisshiEntityList = dataKanriDao.selectRaceNameAndZisshiDate();
 		
 		// 呼び出し元に返却するリソースのリスト
-		ArrayList<K05_RaceZisshiResource> raceZisshiResourceList = new ArrayList<K05_RaceZisshiResource>();
+		List<K05_RaceZisshiResource> raceZisshiResourceList = new ArrayList<>();
 		
 		// EntityをResourceに変換してリストにセット
 		raceZisshiEntityList.forEach(entity -> {
@@ -171,6 +171,64 @@ public class K05_DataKanriService {
 		
 		return raceZisshiResourceList;
 
+	}
+
+
+	/**
+	 * 全騎手名と騎手IDを取得
+	 * 
+	 * @return Resourceのリスト
+	 */
+	public List<K05_KisyuMasterResource> getJockey() {
+		
+		// DBから全騎手名と騎手IDを取得
+		List<K05_KisyuMasterEntity> entityList = dataKanriDao.selectKisyuMaster();
+		
+		// 呼び出し元に返却するリソースのリスト
+		List<K05_KisyuMasterResource> resourceList = new ArrayList<>();
+		
+		// EntityをResourceに変換してリストにセット
+		entityList.forEach(entity -> {
+
+			K05_KisyuMasterResource resource = new K05_KisyuMasterResource();
+			
+			resource.setKisyuId(entity.getKisyuId());
+			resource.setKisyumei(entity.getKisyumei()	);
+			
+			resourceList.add(resource);
+			
+		});
+		
+		return resourceList;
+	}
+
+	
+	/**
+	 * 全競走馬名と競走馬IDを取得
+	 * 
+	 * @return Resourceのリスト
+	 */
+	public List<K05_KyosobaMasterResource> getKyosoba() {
+		
+		// DBから全競走馬名とIDを取得
+		List<K05_KyosobaMasterEntity> entityList = dataKanriDao.selectKyosobaMaster();
+		
+		// 呼び出し元に返却するリソースのリスト
+		List<K05_KyosobaMasterResource> resourceList = new ArrayList<>();
+		
+		// EntityをResourceに変換してリストにセット
+		entityList.forEach(entity -> {
+
+			K05_KyosobaMasterResource resource = new K05_KyosobaMasterResource();
+			
+			resource.setId(entity.getId());
+			resource.setBamei(entity.getBamei()	);
+			
+			resourceList.add(resource);
+			
+		});
+		
+		return resourceList;
 	}
 	
 	

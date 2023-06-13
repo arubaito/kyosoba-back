@@ -168,4 +168,55 @@ public class K05_DataKanriDao {
 		return entityList;
 	}
 	
+	/**
+	 * 騎手マスタテーブルから騎手名と騎手IDを取得
+	 * 
+	 * @return Entityのリスト
+	 */
+	public List<K05_KisyuMasterEntity> selectKisyuMaster() {
+		
+		// 全件取得SQL
+		String sql = "SELECT kisyu_id, kisyumei FROM kisyu ORDER BY kisyu_id";
+		
+		// テーブルからレコードを取得してリストを生成
+		List<K05_KisyuMasterEntity> entityList = jdbcTemplate.query(sql, 
+				new RowMapper<K05_KisyuMasterEntity>() {
+					@Override
+					public K05_KisyuMasterEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+						K05_KisyuMasterEntity entity = new K05_KisyuMasterEntity();
+						entity.setKisyuId(rs.getInt("kisyu_id"));
+						entity.setKisyumei(rs.getString("kisyumei"));
+						return entity;
+					}
+			
+		});
+		
+		return entityList;
+	}
+	
+	/**
+	 * 競走馬マスタテーブルから馬名と競走馬IDを取得
+	 * 
+	 * @return Entityのリスト
+	 */
+	public List<K05_KyosobaMasterEntity> selectKyosobaMaster() {
+		
+		// 全件取得SQL
+		String sql = "SELECT id, bamei FROM kyosoba ORDER BY id DESC";
+		
+		// テーブルからレコードを取得してリストを生成
+		List<K05_KyosobaMasterEntity> entityList = jdbcTemplate.query(sql, 
+				new RowMapper<K05_KyosobaMasterEntity>() {
+					@Override
+					public K05_KyosobaMasterEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+						K05_KyosobaMasterEntity entity = new K05_KyosobaMasterEntity();
+						entity.setId(rs.getInt("id"));
+						entity.setBamei(rs.getString("bamei"));
+						return entity;
+					}
+			
+		});
+		
+		return entityList;
+	}
 }

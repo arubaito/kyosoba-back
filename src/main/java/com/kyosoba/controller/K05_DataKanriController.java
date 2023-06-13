@@ -130,5 +130,37 @@ public class K05_DataKanriController {
 		return raceNameAndZisshiDateList;
 	}
 
+	
+	/**
+	 *  全騎手名と騎手IDを取得
+	 * 
+	 * @return リソースのリスト
+	 */
+	@GetMapping("/get-jockey")
+	public List<K05_KisyuMasterResource> getJockey(){
+		
+		logger.info("K05_DataKanriController#getJockey");
+		
+		List<K05_KisyuMasterResource> resourceList = dataKanriService.getJockey();
+		
+		return resourceList;
+	}	
+	
+	/**
+	 *  全競走馬名とIDを取得
+	 * 
+	 * @return リソースのリスト
+	 */
+	@GetMapping("/get-kyosoba")
+	public List<K05_KyosobaMasterResource> getKyosoba(){
+		
+		logger.info("K05_DataKanriController#getKyosoba");
+		
+		List<K05_KyosobaMasterResource> resourceList = dataKanriService.getKyosoba();
+		
+		return resourceList;
+	}		
+	
+	
 }
 

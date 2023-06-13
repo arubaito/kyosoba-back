@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class K05_KyosobaMasterResource {
 
+	private int id;
 	private String bamei;
 	private Date birthday;
 	private String kyusya;
