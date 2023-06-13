@@ -164,6 +164,7 @@ public class K05_DataKanriService {
 			resource.setRaceZisshiId(entity.getRaceZisshiId());
 			resource.setRaceName(entity.getRaceName());
 			resource.setKaisaiDate(entity.getKaisaiDate());
+			resource.setTousu(entity.getTousu());
 			
 			raceZisshiResourceList.add(resource);
 			

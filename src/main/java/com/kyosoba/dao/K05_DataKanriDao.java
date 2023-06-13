@@ -148,7 +148,7 @@ public class K05_DataKanriDao {
 	 */
 	public List<K05_RaceZisshiEntity> selectRaceNameAndZisshiDate() {
 		
-		String sql = "SELECT t1.race_zisshi_id, t2.race_name, t1.date FROM race_zisshi t1 INNER JOIN race t2 ON t1.race_id = t2.race_id ORDER BY t1.date DESC";
+		String sql = "SELECT t1.race_zisshi_id, t2.race_name, t1.date, t1.tousu FROM race_zisshi t1 INNER JOIN race t2 ON t1.race_id = t2.race_id ORDER BY t1.date DESC";
 		
 		// テーブルからレコードを取得してリストを生成
 		List<K05_RaceZisshiEntity> entityList = jdbcTemplate.query(sql, 
@@ -159,7 +159,8 @@ public class K05_DataKanriDao {
 						entity.setRaceZisshiId(rs.getInt("race_zisshi_id"));
 						entity.setRaceName(rs.getString("race_name"));
 						entity.setKaisaiDate(rs.getDate("date"));
-						
+						entity.setTousu(rs.getInt("tousu"));
+
 						return entity;
 					}
 			
