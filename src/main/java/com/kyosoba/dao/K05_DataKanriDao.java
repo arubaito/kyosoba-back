@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.kyosoba.entity.K05_KisyuMasterEntity;
 import com.kyosoba.entity.K05_KyosobaMasterEntity;
 import com.kyosoba.entity.K05_RaceMasterEntity;
+import com.kyosoba.entity.K05_RaceResultEntity;
 import com.kyosoba.entity.K05_RaceZisshiEntity;
 
 /**
@@ -220,4 +221,29 @@ public class K05_DataKanriDao {
 		
 		return entityList;
 	}
+	
+	/**
+	 * レース結果テーブルにレコードを登録
+	 * 
+	 * @param entity : 登録対称の競走馬マスタテーブルEntity
+	 * @return 登録件数
+	 */
+	public int insertRaceResult(K05_RaceResultEntity entity) {
+		
+		String sql = "INSERT INTO race_result(race_zisshi_id, kyosoba_id, kisyu_id, tyakuzyun, waku, umaban, ninki)"
+				+ " VALUES (?, ?, ?, ?, ?, ?, ? )";
+		
+		int insertCount = jdbcTemplate.update(sql, 
+				entity.getRaceZisshiId(),
+				entity.getKyosobaId(),
+				entity.getKisyuId(),
+				entity.getTyakuzyun(),
+				entity.getWaku(),
+				entity.getUmaban(),
+				entity.getNinki()
+				);
+		
+		return insertCount;
+	}
+	
 }

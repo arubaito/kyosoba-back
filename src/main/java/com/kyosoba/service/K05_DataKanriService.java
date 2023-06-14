@@ -7,15 +7,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kyosoba.dao.K05_DataKanriDao;
 import com.kyosoba.entity.K05_KisyuMasterEntity;
 import com.kyosoba.entity.K05_KyosobaMasterEntity;
 import com.kyosoba.entity.K05_RaceMasterEntity;
+import com.kyosoba.entity.K05_RaceResultEntity;
 import com.kyosoba.entity.K05_RaceZisshiEntity;
 import com.kyosoba.model.K05_KisyuMasterResource;
 import com.kyosoba.model.K05_KyosobaMasterResource;
 import com.kyosoba.model.K05_RaceMasterResource;
+import com.kyosoba.model.K05_RaceResultResource;
 import com.kyosoba.model.K05_RaceZisshiResource;
 
 /**
@@ -231,6 +234,41 @@ public class K05_DataKanriService {
 		
 		return resourceList;
 	}
+	
+	
+	/**
+	 * レース実施結果を登録
+	 * 
+	 * @param resource: レース実施結果Resource
+	 */
+	@Transactional
+	public void registerRaceResult(K05_RaceResultResource resource) {
+		
+		// リソースから登録用のエンティティへ変換
+		K05_RaceResultEntity entity = new K05_RaceResultEntity();
+		
+		
+		
+		// レース結果を各競走馬ごとに登録
+		resource.getRaceResultList().forEach(raceResult -> {
+			// TODO 入力値が空だった時の処理
+			entity.setRaceZisshiId(resource.getRaceZisshiId());
+			entity.setKyosobaId(raceResult.getKyosobaId());
+			entity.setKisyuId(raceResult.getKisyuId());
+			entity.setTyakuzyun(raceResult.getTyakuzyun()); // null許容
+			entity.setWaku(raceResult.getWaku());
+			entity.setUmaban(raceResult.getUmaban());
+			entity.setNinki(raceResult.getNinki());
+			
+			// 登録
+			dataKanriDao.insertRaceResult(entity);
+			
+		});
+		
+		
+		
+	}
+	
 	
 	
 }

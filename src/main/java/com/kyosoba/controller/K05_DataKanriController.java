@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kyosoba.model.K05_KisyuMasterResource;
 import com.kyosoba.model.K05_KyosobaMasterResource;
 import com.kyosoba.model.K05_RaceMasterResource;
+import com.kyosoba.model.K05_RaceResultResource;
 import com.kyosoba.model.K05_RaceZisshiResource;
 import com.kyosoba.service.K05_DataKanriService;
 
@@ -160,6 +161,26 @@ public class K05_DataKanriController {
 		
 		return resourceList;
 	}		
+	
+	
+	/**
+	 * レース実施結果を登録するAPI
+	 * 
+	 * @param resource: リソースのプロパティ{raceZisshiId}{raceResultList}をもつ
+	 */
+	@PostMapping("/register-race-result")
+	public void registerRaceResult(
+			@RequestBody K05_RaceResultResource resource) {
+		
+		logger.info("K05_DataKanriController#registerRaceResult");
+		logger.info(Integer.toString(resource.getRaceZisshiId()));
+		
+		dataKanriService.registerRaceResult(resource);
+		
+		
+		
+	}
+	
 	
 	
 }
