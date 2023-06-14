@@ -246,4 +246,32 @@ public class K05_DataKanriDao {
 		return insertCount;
 	}
 	
+	
+	
+	/**
+	 * 引数に一致する競走馬の数をカウントする（DB登録時の重複チェック時に利用想定）
+	 * @return
+	 */
+	public int countKyosobaByName(String bamei) {
+		
+		String sql = "SELECT COUNT(*) FROM kyosoba WHERE bamei = ? ";
+		
+		Integer count = jdbcTemplate.queryForObject(sql, Integer.class, bamei);
+		
+		return count;
+	}
+	
+	/**
+	 * 引数に一致する騎手の数をカウントする（DB登録時の重複チェック時に利用想定）
+	 * @return
+	 */
+	public int countKisyuByName(String kisyumei) {
+		
+		String sql = "SELECT COUNT(*) FROM kisyu WHERE kisyumei = ? ";
+		
+		Integer count = jdbcTemplate.queryForObject(sql, Integer.class, kisyumei);
+		
+		return count;
+	}
+	
 }

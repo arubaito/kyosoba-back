@@ -15,6 +15,7 @@ import com.kyosoba.entity.K05_KyosobaMasterEntity;
 import com.kyosoba.entity.K05_RaceMasterEntity;
 import com.kyosoba.entity.K05_RaceResultEntity;
 import com.kyosoba.entity.K05_RaceZisshiEntity;
+import com.kyosoba.exception.TableDuplicatedException;
 import com.kyosoba.model.K05_KisyuMasterResource;
 import com.kyosoba.model.K05_KyosobaMasterResource;
 import com.kyosoba.model.K05_RaceMasterResource;
@@ -116,6 +117,12 @@ public class K05_DataKanriService {
 		K05_KisyuMasterEntity entity = new K05_KisyuMasterEntity();
 		entity.setKisyumei(resource.getKisyumei());
 		
+		// 重複チェック
+		int existedKisyu = dataKanriDao.countKisyuByName(entity.getKisyumei());
+		if(existedKisyu == 1) {
+			throw new TableDuplicatedException("テーブルにデータが既に存在します。");
+		}
+		
 		// 登録
 		dataKanriDao.insertKisyuMaster(entity);
 	}
@@ -139,6 +146,11 @@ public class K05_DataKanriService {
 		entity.setFatherId(0); // TODO:将来的には祖先を正確に入れる
 		entity.setMatherId(0); 
 		
+		// 重複チェック
+		int existedKyosoba = dataKanriDao.countKyosobaByName(entity.getBamei());
+		if(existedKyosoba == 1) {
+			throw new TableDuplicatedException("テーブルにデータが既に存在します。");
+		}
 		
 		// 登録
 		dataKanriDao.insertKyosobaMaster(entity);
@@ -264,11 +276,7 @@ public class K05_DataKanriService {
 			dataKanriDao.insertRaceResult(entity);
 			
 		});
-		
-		
-		
+
 	}
-	
-	
-	
+
 }
