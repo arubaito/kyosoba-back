@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 /**
@@ -14,6 +17,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * 参考:P.104 -
  */
 @Configuration
+@EnableTransactionManagement
 public class PoolingDataSourceConfig {
 	
 	// Logger
@@ -39,6 +43,11 @@ public class PoolingDataSourceConfig {
 		return new JdbcTemplate(dataSource());
 	}
    
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		return new DataSourceTransactionManager(dataSource());
+	}
+	
 	/* 
 	 *
 	   	このBean定義について@Serviceを付けているので既にあるといったエラー。ちなみにメソッド名の先頭が大文字だと動いたけどどういう事？
