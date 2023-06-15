@@ -38,7 +38,7 @@ public class JdbcRaceKekkaDao {
 	public List<RaceKekka> getRaceKekkaEntityList(int raceZisshiId) {
 		
 		// レース結果テーブルへ各マスタテーブルを結合するSQL
-		String sql = "select"
+		String sql = "SELECT"
 				+ "    t3.race_zisshi_id as razeZisshiId"
 				+ "    , t2.race_name"
 				+ "    , t3.tyakuzyun"
@@ -50,12 +50,13 @@ public class JdbcRaceKekkaDao {
 				+ "    , t4.seibetsu"
 				+ "    , t5.kisyumei"
 				+ "    , t3.ninki"
-				+ " from race_zisshi t1"
-				+ "    inner join race t2 on t1.race_id = t2.race_id "
-				+ "    left outer join race_result t3 on t1.race_zisshi_id = t3.race_zisshi_id"
-				+ "    left outer join kyosoba t4 on t3.kyosoba_id = t4.id"
-				+ "    left outer join kisyu t5 on t3.kisyu_id = t5.kisyu_id"
-				+ " where t3.race_zisshi_id = ?";
+				+ " FROM race_zisshi t1"
+				+ "    INNER JOIN race t2 ON t1.race_id = t2.race_id "
+				+ "    LEFT OUTER JOIN race_result t3 ON t1.race_zisshi_id = t3.race_zisshi_id"
+				+ "    LEFT OUTER JOIN kyosoba t4 ON t3.kyosoba_id = t4.id"
+				+ "    LEFT OUTER JOIN kisyu t5 ON t3.kisyu_id = t5.kisyu_id"
+				+ " WHERE t3.race_zisshi_id = ?"
+				+ " ORDER BY t3.tyakuzyun, t3.umaban ";
 		
 		List<RaceKekka> raceKekkaList = jdbcTemplate.query(sql, 
 			// RaceKekkaエンティティ変換処理
