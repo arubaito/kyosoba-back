@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -137,8 +138,9 @@ public class JdbcRaceKekkaDao {
 	 * 
 	 * @param raceZisshiId:レース実施ID
 	 * @return レース結果メモエンティティ
+	 * @throws EmptyResultDataAccessException: メモを登録していない場合にデータが取得できず発生する例外
 	 */
-	public K02_RaceKekkaMemo getRaceKekkaMemo(int raceZisshiId) {
+	public K02_RaceKekkaMemo getRaceKekkaMemo(int raceZisshiId) throws EmptyResultDataAccessException  {
 		
 		String selectSql = "SELECT * FROM race_result_memo WHERE race_zisshi_id = ? limit 1";
 		

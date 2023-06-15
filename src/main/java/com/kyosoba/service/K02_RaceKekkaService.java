@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.kyosoba.dao.JdbcRaceKekkaDao;
@@ -104,7 +105,15 @@ public class K02_RaceKekkaService {
 		K02_RaceKekkaMemoResource raceKekkaMemoResource = new K02_RaceKekkaMemoResource();
 		
 		// DBからレース結果メモを取得
-		K02_RaceKekkaMemo raceKekkaMemo = jdbcRaceKekkaDao.getRaceKekkaMemo(raceZisshiId);
+		K02_RaceKekkaMemo raceKekkaMemo = new K02_RaceKekkaMemo();
+		try {
+			raceKekkaMemo = jdbcRaceKekkaDao.getRaceKekkaMemo(raceZisshiId);
+		}catch (EmptyResultDataAccessException e) {
+			logger.info("レース結果メモが存在しない場合は例外処理で空白をセット");
+			// データが取得できなかった場合は空白をセット
+			raceKekkaMemo.setRaceZisshiId(raceZisshiId);
+			raceKekkaMemo.setRaceKekkaMemo("");
+		}
 		
 		// リソースとエンティティの変換処理
 		raceKekkaMemoResource.setRaceZisshiId(raceZisshiId);
