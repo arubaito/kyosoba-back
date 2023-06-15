@@ -141,7 +141,7 @@ public class K05_DataKanriService {
 		entity.setKyusya(resource.getKyusya());
 		entity.setBanushi(resource.getBanushi());
 		entity.setSeisansya(resource.getSeisansya());
-		entity.setSebetsu(resource.isSebetsu());
+		entity.setSeibetsu(resource.isSeibetsu());
 		entity.setKeiro(resource.getKeiro());
 		entity.setFatherId(0); // TODO:将来的には祖先を正確に入れる
 		entity.setMatherId(0); 

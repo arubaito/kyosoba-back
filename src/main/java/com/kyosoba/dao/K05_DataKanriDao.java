@@ -133,7 +133,7 @@ public class K05_DataKanriDao {
 				entity.getKyusya(),
 				entity.getBanushi(),
 				entity.getSeisansya(),
-				entity.isSebetsu(),
+				entity.isSeibetsu(),
 				entity.getKeiro(),
 				entity.getFatherId(),
 				entity.getMatherId()

@@ -16,7 +16,7 @@ public class K05_KyosobaMasterEntity {
 	private String kyusya;
 	private String banushi;
 	private String seisansya;
-	private boolean sebetsu;
+	private boolean seibetsu;
 	private String keiro;
 	private int fatherId;
 	private int matherId;
