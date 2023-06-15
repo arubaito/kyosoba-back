@@ -5,12 +5,17 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kyosoba.exception.TableDuplicatedException;
+import com.kyosoba.model.K05_ApiErrorResource;
 import com.kyosoba.model.K05_KisyuMasterResource;
 import com.kyosoba.model.K05_KyosobaMasterResource;
 import com.kyosoba.model.K05_RaceMasterResource;
@@ -31,6 +36,21 @@ public class K05_DataKanriController {
 	@Autowired
 	K05_DataKanriService dataKanriService;
 	
+	/**
+	 * データ登録時にデータが重複していた場合に返却するHTTPメッセージ(ステータスコード:422)
+	 * 
+	 * @param ex テーブル重複例外
+	 * @return エラーメッセージをセットしたResourceobject
+ 	 */
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public K05_ApiErrorResource handleException(TableDuplicatedException ex) {
+		
+		K05_ApiErrorResource apiErrorResource = new  K05_ApiErrorResource();
+		apiErrorResource.setMessage(ex.getMessage());
+		return apiErrorResource;
+	}
+
 	
 	/**
 	 * レースマスタにデータを登録
